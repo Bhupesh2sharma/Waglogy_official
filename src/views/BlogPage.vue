@@ -30,7 +30,10 @@
               <h3 class="text-xl font-bold text-secondary mb-3">{{ post.title }}</h3>
               <p class="text-gray-600 mb-4">{{ post.excerpt }}</p>
               <div class="flex justify-between items-center mt-auto">
-                <span class="text-sm text-gray-500">{{ post.date }}</span>
+                <div class="flex flex-col">
+                  <span class="text-sm text-gray-500">{{ post.date }}</span>
+                  <span class="text-xs text-gray-400">By {{ post.author }}</span>
+                </div>
                 <router-link 
                   :to="`/blog/${post.slug}`"
                   class="text-primary hover:text-secondary transition-colors font-semibold"
@@ -47,59 +50,7 @@
 </template>
 
 <script setup>
-import { 
-  CodeIcon, 
-  CloudIcon,
-  BrainCircuitIcon,
-  ShieldCheckIcon,
-  DatabaseIcon,
-  GlobeIcon
-} from 'lucide-vue-next'
-
-const blogPosts = [
-  {
-    title: "The Future of AI Development",
-    excerpt: "Exploring the latest trends and innovations in artificial intelligence and machine learning. Discover how AI is reshaping industries.",
-    date: "March 20, 2024",
-    slug: "future-of-ai-development",
-    icon: BrainCircuitIcon
-  },
-  {
-    title: "Cloud Computing Trends 2024",
-    excerpt: "Understanding the evolving landscape of cloud technologies and their impact on modern business operations.",
-    date: "March 18, 2024",
-    slug: "cloud-computing-trends-2024",
-    icon: CloudIcon
-  },
-  {
-    title: "Web Development Best Practices",
-    excerpt: "Essential guidelines for modern web development and performance optimization strategies.",
-    date: "March 15, 2024",
-    slug: "web-development-best-practices",
-    icon: CodeIcon
-  },
-  {
-    title: "Cybersecurity Essentials",
-    excerpt: "Key strategies to protect your digital assets in an increasingly connected world.",
-    date: "March 12, 2024",
-    slug: "cybersecurity-essentials",
-    icon: ShieldCheckIcon
-  },
-  {
-    title: "Database Architecture",
-    excerpt: "Modern approaches to designing scalable and efficient database systems for enterprise applications.",
-    date: "March 10, 2024",
-    slug: "database-architecture",
-    icon: DatabaseIcon
-  },
-  {
-    title: "Digital Transformation",
-    excerpt: "Guiding businesses through successful digital transformation journeys in the modern era.",
-    date: "March 8, 2024",
-    slug: "digital-transformation",
-    icon: GlobeIcon
-  }
-]
+import { blogPosts } from '../data/blogPosts'
 </script>
 
 <style scoped>

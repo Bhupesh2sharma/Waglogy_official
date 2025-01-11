@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="post">
     <!-- Hero Section -->
     <section class="relative min-h-[40vh] flex items-center bg-gradient-to-br from-secondary to-primary overflow-hidden py-20">
       <div class="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,45 +43,24 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { BrainCircuitIcon, ArrowLeftIcon } from 'lucide-vue-next'
+import { useRoute, useRouter } from 'vue-router'
+import { ArrowLeftIcon } from 'lucide-vue-next'
+import { blogPosts } from '../data/blogPosts'
 
 const route = useRoute()
-const post = ref({
-  title: '',
-  date: '',
-  author: '',
-  content: '',
-  icon: BrainCircuitIcon
-})
+const router = useRouter()
+const post = ref(null)
 
 onMounted(() => {
-  // Here you would typically fetch the blog post data based on route.params.slug
-  // For now, using dummy data
-  post.value = {
-    title: "The Future of AI Development",
-    date: "March 20, 2024",
-    author: "John Doe",
-    icon: BrainCircuitIcon,
-    content: `
-      <p>Artificial Intelligence (AI) continues to evolve at an unprecedented pace, reshaping industries and creating new possibilities across various sectors. In this comprehensive guide, we'll explore the latest developments in AI technology and their implications for businesses and society.</p>
-
-      <h2>The Rise of Generative AI</h2>
-      <p>Generative AI has emerged as one of the most transformative technologies in recent years. From creating art to writing code, these systems are pushing the boundaries of what's possible with machine learning.</p>
-
-      <h2>Practical Applications</h2>
-      <p>Industries across the board are finding innovative ways to implement AI solutions:</p>
-      <ul>
-        <li>Healthcare: Diagnostic assistance and drug discovery</li>
-        <li>Finance: Risk assessment and fraud detection</li>
-        <li>Manufacturing: Predictive maintenance and quality control</li>
-        <li>Customer Service: Intelligent chatbots and personalization</li>
-      </ul>
-
-      <h2>Looking Ahead</h2>
-      <p>As we look to the future, several key trends are emerging that will shape the development of AI technology. These include increased focus on ethical AI, better interpretability of AI systems, and more efficient training methods.</p>
-    `
+  const currentPost = blogPosts.find(p => p.slug === route.params.slug)
+  
+  if (!currentPost) {
+    // Handle 404 - post not found
+    router.push('/blog')
+    return
   }
+  
+  post.value = currentPost
 })
 </script>
 
