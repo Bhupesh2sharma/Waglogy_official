@@ -123,6 +123,37 @@
         </div>
       </section>
   
+      <!-- Latest Blog Posts -->
+      <section class="section bg-gray-50">
+        <div class="container">
+          <h2 class="section-title text-secondary mb-12">Latest Insights</h2>
+          <div class="grid md:grid-cols-3 gap-8">
+            <div 
+              v-for="(post, index) in latestPosts" 
+              :key="index"
+              class="blog-preview-card"
+            >
+              <div class="icon-3d-container mb-6">
+                <component :is="post.icon" size="32" class="icon-3d-feature" />
+              </div>
+              <h3 class="text-xl font-bold text-secondary mb-3">{{ post.title }}</h3>
+              <p class="text-gray-600 mb-4">{{ post.excerpt }}</p>
+              <router-link 
+                :to="`/blog/${post.slug}`"
+                class="text-primary hover:text-primary-dark font-semibold"
+              >
+                Read More →
+              </router-link>
+            </div>
+          </div>
+          <div class="text-center mt-12">
+            <router-link to="/blog" class="btn btn-primary">
+              View All Posts
+            </router-link>
+          </div>
+        </div>
+      </section>
+  
       <!-- CTA Section -->
       <section class="section bg-secondary text-white">
         <div class="container text-center">
@@ -223,6 +254,27 @@
       icon: ShieldCheckIcon,
       title: 'Quality Assured',
       description: 'Our rigorous quality control ensures reliable and robust solutions.'
+    }
+  ]
+  
+  const latestPosts = [
+    {
+      title: "The Future of AI Development",
+      excerpt: "Exploring the latest trends and innovations in artificial intelligence.",
+      slug: "future-of-ai-development",
+      icon: BrainCircuitIcon
+    },
+    {
+      title: "Cloud Computing Trends 2024",
+      excerpt: "Understanding the evolving landscape of cloud technologies.",
+      slug: "cloud-computing-trends-2024",
+      icon: CloudIcon
+    },
+    {
+      title: "Web Development Best Practices",
+      excerpt: "Essential guidelines for modern web development.",
+      slug: "web-development-best-practices",
+      icon: CodeIcon
     }
   ]
   </script>

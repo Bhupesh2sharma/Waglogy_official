@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import BlogPage from '../views/BlogPage.vue'
+import BlogPostPage from '../views/BlogPostPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +29,16 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: () => import('../views/ContactPage.vue')
+    },
+    {
+      path: '/blog',
+      name: 'Blog',
+      component: BlogPage
+    },
+    {
+      path: '/blog/:slug',
+      name: 'BlogPost',
+      component: BlogPostPage
     }
   ]
 })
