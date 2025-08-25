@@ -1,23 +1,41 @@
 <template>
-    <div class="min-h-screen bg-secondary">
-      <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gradient-to-br from-[#2562eb] to-[#ffffff] ">
+      <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-200 rounded-lg m-4 shadow-xl ">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div class="flex justify-between h-16">
             <div class="flex-shrink-0 flex items-center">
-              <router-link to="/" class="text-primary text-2xl font-bold">
-                Waglogy
+              <router-link to="/" class="flex items-center gap-2">
+                <img src="/logo.png" alt="Logo" class="h-20 w-20 rounded-md object-contain" />
               </router-link>
             </div>
-            <div class="hidden sm:flex sm:items-center sm:space-x-8">
+            <div class="hidden sm:flex sm:items-center sm:space-x-8 relative   ">
               <router-link
-                v-for="item in navigationItems"
+                v-for="item in navigationItems.slice(0, 3)"
                 :key="item.path"
                 :to="item.path"
-                class="text-secondary hover:text-primary transition-colors px-3 py-2"
+                class=" hover:text-primary transition-colors   "
                 :class="{ 'text-primary': isCurrentRoute(item.path) }"
               >
                 {{ item.name }}
               </router-link>
+              <!-- More Dropdown -->
+              <div class="relative group">
+                <button class="text-secondary hover:text-primary transition-colors px-3 py-2 flex items-center gap-1 focus:outline-none">
+                  More
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-100 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto transition-all duration-200 z-50">
+                  <router-link
+                    v-for="item in navigationItems.slice(3)"
+                    :key="item.path"
+                    :to="item.path"
+                    class="block px-4 py-2 text-secondary hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                    :class="{ 'text-primary': isCurrentRoute(item.path) }"
+                  >
+                    {{ item.name }}
+                  </router-link>
+                </div>
+              </div>
             </div>
             <button
               @click="isMobileMenuOpen = !isMobileMenuOpen"
@@ -34,21 +52,24 @@
           v-show="isMobileMenuOpen"
           class="sm:hidden"
         >
-          <div class="pt-2 pb-3 space-y-1">
-            <router-link
-              v-for="item in navigationItems"
-              :key="item.path"
-              :to="item.path"
-              class="block px-3 py-2 text-base font-medium"
-              :class="[
-                isCurrentRoute(item.path)
-                  ? 'text-primary'
-                  : 'text-secondary hover:text-primary'
-              ]"
-              @click="isMobileMenuOpen = false"
-            >
-              {{ item.name }}
-            </router-link>
+          <div class="flex flex-col items-center pt-4 pb-3 space-y-1">
+            <img src="/logo.png" alt="Logo" class="h-16 w-16 rounded-md object-contain mb-2" />
+            <div class="w-full flex flex-col items-center">
+              <router-link
+                v-for="item in navigationItems"
+                :key="item.path"
+                :to="item.path"
+                class="block px-3 py-2 text-base font-medium text-center"
+                :class="[
+                  isCurrentRoute(item.path)
+                    ? 'text-primary'
+                    : 'text-secondary hover:text-primary'
+                ]"
+                @click="isMobileMenuOpen = false"
+              >
+                {{ item.name }}
+              </router-link>
+            </div>
           </div>
         </div>
       </nav>
