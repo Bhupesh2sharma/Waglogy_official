@@ -1,111 +1,107 @@
 <template>
     <div>
       <!-- Hero Section with 3D Icons -->
-      <section class="relative min-h-screen flex items-center bg-gradient-to-br from-secondary to-primary overflow-hidden py-20">
-        <!-- 3D Floating Icons Background -->
-        <div class="absolute inset-0 overflow-hidden">
-          <div v-for="(icon, index) in floatingIcons" 
-               :key="index" 
-               class="floating-icon absolute"
-               :style="{
-                 left: `${icon.left}%`,
-                 top: `${icon.top}%`,
-                 animationDelay: `${icon.delay}s`,
-                 transform: `scale(${icon.scale})`
-               }">
-            <component 
-              :is="icon.component" 
-              class="text-white/10 transform-gpu"
-              :size="icon.size" 
-            />
-          </div>
+      <section v-scroll-animate class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#2562eb] to-[#ffffff] overflow-hidden py-20">
+        <!-- Glassmorphism Background Shape -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div class="blur-xl opacity-60 rounded-3xl bg-white/20 border border-white/30 shadow-2xl w-[80vw] h-[60vh] max-w-5xl mx-auto"></div>
         </div>
-        
         <!-- Hero Content -->
-        <div class="container relative z-10">
-          <div class="max-w-3xl mx-auto text-center text-white">
-            <div class="mb-8 perspective-container">
-              <div class="rotating-cube mx-auto mb-8">
-                <div class="cube-face front">
-                  <CodeIcon size="48" />
-                </div>
-                <div class="cube-face back">
-                  <RocketIcon size="48" />
-                </div>
-                <div class="cube-face right">
-                  <CloudIcon size="48" />
-                </div>
-                <div class="cube-face left">
-                  <DatabaseIcon size="48" />
-                </div>
-                <div class="cube-face top">
-                  <LayersIcon size="48" />
-                </div>
-                <div class="cube-face bottom">
-                  <ServerIcon size="48" />
-                </div>
-              </div>
-            </div>
-            <h1 
-              class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in"
-            >
-              Innovating Tomorrow's Technology Today
-            </h1>
-            <p 
-              class="text-xl md:text-2xl mb-8 text-gray-200 animate-fade-in animation-delay-200"
-            >
-              We transform ideas into cutting-edge solutions that drive business growth and innovation.
-            </p>
-            <div 
-              class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in animation-delay-400"
-            >
-              <router-link to="/services" class="btn btn-primary">
-                Explore Services
-              </router-link>
-              <router-link to="/about" class="btn btn-outline border-white text-white hover:bg-white hover:text-secondary">
-                Learn More
-              </router-link>
-            </div>
+        <div class="container relative z-10 flex flex-col items-center justify-center text-center px-4">
+          <!-- Animated Rocket Icons -->
+          <div class="flex justify-center gap-4 mb-2">
+            <!-- Removed RocketIcon components -->
+          </div>
+          <h1 class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg min-h-[1.5em]" style="font-family: 'SF Pro Display', 'San Francisco', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;">
+            {{ typedHeadline }}<span v-if="typedHeadline.length < fullHeadline.length" class="animate-pulse">|</span>
+          </h1>
+          <p class="text-lg md:text-xl mb-4 text-white/80 max-w-2xl mx-auto -mt-2" style="font-family: 'SF Pro Display', 'San Francisco', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;">
+            Transforming ideas into digital excellence. We build innovative, scalable, and visually stunning solutions that help your business thrive in a connected world.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <router-link to="/services" class="rounded-md px-8 py-3 bg-[#2562eb] text-white font-semibold shadow-lg hover:bg-white hover:text-[#2562eb] transition-all duration-200 border-2 border-[#2562eb] text-lg">
+              Explore Services
+            </router-link>
+            <router-link to="/about" class="rounded-md px-8 py-3 bg-white/20 text-white font-semibold shadow-lg hover:bg-white hover:text-[#2562eb] transition-all duration-200 border-2 border-white/30 text-lg backdrop-blur-md">
+              Learn More
+            </router-link>
           </div>
         </div>
       </section>
   
       <!-- Services Preview with 3D Cards -->
-      <section class="section bg-white">
-        <div class="container">
-          <h2 class="section-title text-secondary">Our Services</h2>
-          <div class="grid-cols-auto-fit">
-            <div 
-              v-for="(service, index) in services" 
-              :key="index"
-              class="service-card"
-            >
-              <div class="service-card-inner">
-                <div class="service-card-front">
-                  <div class="icon-3d">
-                    <component :is="service.icon" size="32" />
-                  </div>
-                  <h3 class="text-xl font-bold text-secondary mb-4">{{ service.title }}</h3>
-                  <p class="text-gray-600">{{ service.description }}</p>
-                </div>
-                <div class="service-card-back">
-                  <h3 class="text-xl font-bold text-white mb-4">{{ service.title }}</h3>
-                  <p class="text-gray-200 mb-4">{{ service.details }}</p>
-                  <router-link 
-                    :to="`/services#${service.id}`" 
-                    class="btn btn-outline border-white text-white hover:bg-white hover:text-primary"
-                  >
-                    Learn More
-                  </router-link>
-                </div>
-              </div>
+    <section v-scroll-animate class="section bg-white">
+  <div class="container">
+    <!-- Heading Section -->
+    <div class="flex items-center justify-start gap-6 mb-10">
+      <!-- also fix typo: rounded-x -> rounded-l or rounded-xl -->
+      <h2 class="text-4xl font-extrabold uppercase tracking-wide bg-gradient-to-br from-[#2562eb] to-[#ffffff] p-2 rounded-l text-white">
+        Services
+      </h2>
+      <div class="w-px h-12 bg-[#2562eb]"></div>
+      <p class="text-gray-600 text-lg leading-snug">
+        From web and mobile development to cloud solutions and digital marketing, we deliver innovative and scalable services tailored to your needs.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid-cols-auto-fit">
+      <div 
+        v-for="(service, index) in services" 
+        :key="index"
+        class="service-card"
+      >
+        <div class="service-card-inner">
+          <!-- FRONT -->
+          <div
+            class="service-card-front"
+            :class="index === 0 ? '!bg-blue-500 !text-white' : 'bg-white text-gray-800'"
+          >
+            <div class="icon-3d">
+              <component 
+                :is="service.icon" 
+                size="32" 
+                :class="index === 0 ? 'text-white' : 'text-[#2562eb]'" 
+              />
             </div>
+            <h3 class="text-xl font-bold mb-4" :class="index === 0 ? 'text-white' : 'text-secondary'">
+              {{ service.title }}
+            </h3>
+            <p :class="index === 0 ? 'text-gray-100' : 'text-gray-600'">
+              {{ service.description }}
+            </p>
+          </div>
+
+          <!-- BACK (unchanged) -->
+          <div class="service-card-back">
+            <h3 class="text-xl font-bold text-white mb-4">{{ service.title }}</h3>
+            <p class="text-gray-200 mb-4">{{ service.details }}</p>
+            <router-link 
+              :to="`/services#${service.id}`" 
+              class="btn btn-outline border-white text-white hover:bg-white hover:text-primary bg-white"
+            >
+              Learn More
+            </router-link>
           </div>
         </div>
-      </section>
-  
+      </div>
+    </div>
+  </div>
+</section>
+
+<div v-scroll-animate style="position: relative; width: 100%; height: 0; padding-top: 20%;  overflow: hidden; background: none;" class="mx-2 md:mx-12">
+  <iframe
+    loading="lazy"
+    style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; background: none;"
+    src="https://www.canva.com/design/DAGxLvC6I7U/gxUiXoebGUB2kodOLHTHMA/view?embed"
+    allowfullscreen
+    allow="fullscreen"
+    title="Canva Design"
+  ></iframe>
+</div>
+
       <!-- Features with 3D Icons -->
-      <section class="section bg-gray-50">
+      <section v-scroll-animate class="section bg-gray-50">
         <div class="container">
           <div class="grid md:grid-cols-3 gap-8">
             <div 
@@ -123,8 +119,9 @@
         </div>
       </section>
   
+ 
       <!-- Latest Blog Posts -->
-      <section class="section bg-gray-50">
+      <section v-scroll-animate class="section bg-gray-50">
         <div class="container">
           <h2 class="section-title text-secondary mb-12">Latest Insights</h2>
           <div class="grid md:grid-cols-3 gap-8">
@@ -155,7 +152,7 @@
       </section>
   
       <!-- CTA Section -->
-      <section class="section bg-secondary text-white">
+      <section v-scroll-animate class="section bg-secondary text-white">
         <div class="container text-center">
           <div class="cta-3d-container mb-8">
             <RocketIcon size="48" class="cta-3d-icon" />
@@ -182,7 +179,7 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted, nextTick } from 'vue'
   import { 
     CodeIcon, 
     LayoutGridIcon, 
@@ -277,6 +274,64 @@
       icon: CodeIcon
     }
   ]
+
+  // Typing animation for hero headline (looping through multiple messages)
+  const messages = [
+    "Elevate Your Digital Presence",
+    "Build with Innovation",
+    "Design for Excellence",
+    "Empower Your Business",
+    "Create Impactful Solutions"
+  ]
+  const typedHeadline = ref("")
+  const fullHeadline = ref(messages[0])
+  let messageIndex = 0
+
+  function typeHeadlineLoop(text, speed = 60, pause = 1200, eraseSpeed = 30) {
+    let i = 0
+    function type() {
+      if (i <= text.length) {
+        typedHeadline.value = text.slice(0, i)
+        i++
+        setTimeout(type, speed)
+      } else {
+        setTimeout(erase, pause)
+      }
+    }
+    function erase() {
+      if (i >= 0) {
+        typedHeadline.value = text.slice(0, i)
+        i--
+        setTimeout(erase, eraseSpeed)
+      } else {
+        messageIndex = (messageIndex + 1) % messages.length
+        fullHeadline.value = messages[messageIndex]
+        setTimeout(() => typeHeadlineLoop(fullHeadline.value, speed, pause, eraseSpeed), 400)
+      }
+    }
+    type()
+  }
+
+  onMounted(() => {
+    typeHeadlineLoop(fullHeadline.value)
+  })
+
+  // Custom scroll animation directive
+  const scrollAnimate = {
+    mounted(el) {
+      el.classList.add('before-scroll')
+      const observer = new window.IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            el.classList.add('scroll-animated')
+            observer.disconnect()
+          }
+        },
+        { threshold: 0.15 }
+      )
+      observer.observe(el)
+    }
+  }
   </script>
   
   <style scoped>
@@ -357,7 +412,6 @@
   }
   
   .service-card-front {
-    background: white;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   
@@ -448,5 +502,25 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  @keyframes rocketBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px) scale(1.1); }
+  }
+  .animate-rocket-bounce {
+    animation: rocketBounce 1.2s infinite cubic-bezier(0.4,0,0.2,1);
+  }
+  .animate-rocket-bounce-slow {
+    animation: rocketBounce 2.2s infinite cubic-bezier(0.4,0,0.2,1);
+  }
+  .before-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+  .scroll-animated {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
   </style>
