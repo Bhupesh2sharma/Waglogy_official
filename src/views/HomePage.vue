@@ -1,7 +1,7 @@
 <template>
     <div>
       <!-- Hero Section with 3D Icons -->
-      <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#2562eb] to-[#ffffff] overflow-hidden py-20">
+      <section v-scroll-animate class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#2562eb] to-[#ffffff] overflow-hidden py-20">
         <!-- Glassmorphism Background Shape -->
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div class="blur-xl opacity-60 rounded-3xl bg-white/20 border border-white/30 shadow-2xl w-[80vw] h-[60vh] max-w-5xl mx-auto"></div>
@@ -30,7 +30,7 @@
       </section>
   
       <!-- Services Preview with 3D Cards -->
-    <section class="section bg-white">
+    <section v-scroll-animate class="section bg-white">
   <div class="container">
     <!-- Heading Section -->
     <div class="flex items-center justify-start gap-6 mb-10">
@@ -78,7 +78,7 @@
             <p class="text-gray-200 mb-4">{{ service.details }}</p>
             <router-link 
               :to="`/services#${service.id}`" 
-              class="btn btn-outline border-white text-white hover:bg-white hover:text-primary"
+              class="btn btn-outline border-white text-white hover:bg-white hover:text-primary bg-white"
             >
               Learn More
             </router-link>
@@ -89,10 +89,19 @@
   </div>
 </section>
 
+<div v-scroll-animate style="position: relative; width: 100%; height: 0; padding-top: 20%;  overflow: hidden; background: none;" class="mx-2 md:mx-12">
+  <iframe
+    loading="lazy"
+    style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; background: none;"
+    src="https://www.canva.com/design/DAGxLvC6I7U/gxUiXoebGUB2kodOLHTHMA/view?embed"
+    allowfullscreen
+    allow="fullscreen"
+    title="Canva Design"
+  ></iframe>
+</div>
 
-  
       <!-- Features with 3D Icons -->
-      <section class="section bg-gray-50">
+      <section v-scroll-animate class="section bg-gray-50">
         <div class="container">
           <div class="grid md:grid-cols-3 gap-8">
             <div 
@@ -110,8 +119,9 @@
         </div>
       </section>
   
+ 
       <!-- Latest Blog Posts -->
-      <section class="section bg-gray-50">
+      <section v-scroll-animate class="section bg-gray-50">
         <div class="container">
           <h2 class="section-title text-secondary mb-12">Latest Insights</h2>
           <div class="grid md:grid-cols-3 gap-8">
@@ -142,7 +152,7 @@
       </section>
   
       <!-- CTA Section -->
-      <section class="section bg-secondary text-white">
+      <section v-scroll-animate class="section bg-secondary text-white">
         <div class="container text-center">
           <div class="cta-3d-container mb-8">
             <RocketIcon size="48" class="cta-3d-icon" />
@@ -169,7 +179,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, nextTick } from 'vue'
   import { 
     CodeIcon, 
     LayoutGridIcon, 
@@ -305,6 +315,23 @@
   onMounted(() => {
     typeHeadlineLoop(fullHeadline.value)
   })
+
+  // Custom scroll animation directive
+  const scrollAnimate = {
+    mounted(el) {
+      el.classList.add('before-scroll')
+      const observer = new window.IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            el.classList.add('scroll-animated')
+            observer.disconnect()
+          }
+        },
+        { threshold: 0.15 }
+      )
+      observer.observe(el)
+    }
+  }
   </script>
   
   <style scoped>
@@ -486,5 +513,14 @@
   }
   .animate-rocket-bounce-slow {
     animation: rocketBounce 2.2s infinite cubic-bezier(0.4,0,0.2,1);
+  }
+  .before-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+  .scroll-animated {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
   </style>
